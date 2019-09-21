@@ -20,11 +20,13 @@ public class DemoAjaxApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception{
+		/**
 		SocialMetaTag og = service.getSocialMetaTagByUrl("https://www.udemy.com/course/python-3-do-zero-ao-avancado/");
 		System.out.println(og.toString());
 		
 		SocialMetaTag twitter = service.getSocialMetaTagByUrl("https://www.pichau.com.br/gabinete-pichau-gaming-komor-led-rgb-lateal-em-vidro-temp-pgk-01-rgb");
 		System.out.println(twitter.toString());
+		*/
 	}
 
 }
