@@ -1,5 +1,7 @@
 package com.mburatti.demoajax.service;
 
+import java.io.IOException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
@@ -15,32 +17,16 @@ public class SocialMetaTagService {
 	
 	public SocialMetaTag getSocialMetaTagByUrl(String url) {
 		SocialMetaTag twitter = getTwitterCardByUrl(url);
-		
-		if(!isEmpty(twitter)) {
+		if (!isEmpty(twitter)) {
 			return twitter;
 		}
 		
-		SocialMetaTag openGraph = getOpenGraphBuUrl(url);
-		if(!isEmpty(openGraph)) {
+		SocialMetaTag openGraph = getOpenGraphByUrl(url);
+		if (!isEmpty(openGraph)) {
 			return openGraph;
 		}
 		
 		return null;
-		
-	}
-	
-	private SocialMetaTag getOpenGraphBuUrl(String url) {
-		SocialMetaTag tag = new SocialMetaTag();
-		try {
-			Document doc = Jsoup.connect(url).get();
-			tag.setTitle(doc.head().select("meta[property=og:title]").attr("content"));
-			tag.setSite(doc.head().select("meta[property=og:site_name]").attr("content"));
-			tag.setImage(doc.head().select("meta[property=og:image]").attr("content"));
-			tag.setUrl(doc.head().select("meta[property=og:url]").attr("content"));
-		}catch(Exception e) {
-			log.error(e.getMessage(), e.getCause());
-		}
-		return tag;
 	}
 	
 	private SocialMetaTag getTwitterCardByUrl(String url) {
@@ -51,19 +37,35 @@ public class SocialMetaTagService {
 			tag.setSite(doc.head().select("meta[name=twitter:site]").attr("content"));
 			tag.setImage(doc.head().select("meta[name=twitter:image]").attr("content"));
 			tag.setUrl(doc.head().select("meta[name=twitter:url]").attr("content"));
-		}catch(Exception e) {
+		} catch (IOException e) {
 			log.error(e.getMessage(), e.getCause());
 		}
 		return tag;
-	}
+	}	
 
+	private SocialMetaTag getOpenGraphByUrl(String url) {
+		SocialMetaTag tag = new SocialMetaTag();
+		try {
+			Document doc = Jsoup.connect(url).get();
+			tag.setTitle(doc.head().select("meta[property=og:title]").attr("content"));
+			tag.setSite(doc.head().select("meta[property=og:site_name]").attr("content"));
+			tag.setImage(doc.head().select("meta[property=og:image]").attr("content"));
+			tag.setUrl(doc.head().select("meta[property=og:url]").attr("content"));
+		} catch (IOException e) {
+			log.error(e.getMessage(), e.getCause());
+		}
+		return tag;
+	}		
+	
 	private boolean isEmpty(SocialMetaTag tag) {
-		if(tag.getImage().isEmpty()) return true;
-		if(tag.getSite().isEmpty()) return true;
-		if(tag.getTitle().isEmpty()) return true;
-		if(tag.getUrl().isEmpty()) return true;
-		
+		if (tag.getImage().isEmpty()) return true;
+		if (tag.getSite().isEmpty()) return true;
+		if (tag.getTitle().isEmpty()) return true;
+		if (tag.getUrl().isEmpty()) return true;		
 		return false;
 	}
-	
 }
+
+
+
+

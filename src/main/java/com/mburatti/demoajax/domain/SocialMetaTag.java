@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class SocialMetaTag implements Serializable {
-	
-	private String site;	
+
+	private String site;
 	private String title;
 	private String url;
 	private String image;
@@ -34,14 +34,8 @@ public class SocialMetaTag implements Serializable {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
 	@Override
 	public String toString() {
-		return "SocialMetaTag [" + (site != null ? "site=" + site + ", " : "")
-				+ (title != null ? "title=" + title + ", " : "") + (url != null ? "url=" + url + ", " : "")
-				+ (image != null ? "image=" + image : "") + "]";
+		return "SocialMetaTag [site=" + site + ", title=" + title + ", url=" + url + ", image=" + image + "]";
 	}
-
-	
-	
 }
