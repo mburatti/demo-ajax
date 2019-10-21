@@ -37,7 +37,7 @@ public class Promocao implements Serializable {
 	private String linkImagem;
 	
 	@NotNull(message = "O preço é requerido")
-	@NumberFormat(style = Style.CURRENCY, pattern = "#.##0,00")
+	@NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
 	@Column(name = "preco_promocao", nullable = false)
 	private BigDecimal preco;
 	

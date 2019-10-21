@@ -31,8 +31,6 @@ $("#form-add-promo").submit(function(evt) {
 			//habilita o loading
 			$("#form-add-promo").hide();
 			$("#loader-form").addClass("loader").show();
-			
-			console.log('promo:', promo);
 		},
 		success: function() {
 			$("#form-add-promo").each(function() {

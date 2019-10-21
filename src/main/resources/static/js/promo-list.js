@@ -9,7 +9,7 @@ $(document).ready(function(){
 $(window).scroll(function() {
 	
 	var scrollTop = $(this).scrollTop();
-	var conteudo = $(document).height() - $(window).height() + 20;
+	var conteudo = $(document).height() - $(window).height();
 	
 	//console.log('scrollTop: ', scrollTop, ' | ', 'conteudo', conteudo);
 	
@@ -35,7 +35,7 @@ function loadByScrollBar(pageNumber) {
 		},
 		success: function( response ) {
 			//console.log("resposta > ", response);
-			console.log("lista > ", response.length);
+			//console.log("lista > ", response.length);
 			
 			if (response.length > 150) {
 			
@@ -57,8 +57,30 @@ function loadByScrollBar(pageNumber) {
 	})  
 }
 
-//* == wait a click
-$("button[id*='likes-btn-']").on("click", function(){
+// adicionar likes
+$(document).on("click", "button[id*='likes-btn-']", function() {
 	var id = $(this).attr("id").split("-")[2];
-	console.log("id:",id);
-})
+	console.log("id: ", id);
+	
+	$.ajax({
+		method: "POST",
+		url: "/promocao/like/" + id,
+		success: function(response) {
+			$("#likes-count-" + id).text(response);
+		},
+		error: function(xhr) {
+			alert("Ops, ocorreu um erro: " + xhr.status + ", " + xhr.statusText);
+		}
+	});
+});
+
+
+
+
+
+
+
+
+
+
+
